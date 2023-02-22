@@ -1,17 +1,39 @@
 <template>
-  <div class="flex justify-between w-56">
-    <button @click="pullMouth">-</button>
-    <button @click="setToNow">NOW</button>
-    <button @click="addMouth">+</button>
-  </div>
-  {{ mouth_name }} {{ year_selected }}
-  <div class="flex flex-wrap w-56">
-    <div v-for="name in NAME_OF_DAYS" class="text-sm w-8 h-8 flex items-center justify-center cursor-pointer rounded-full space-y-2">
-      {{ name }}
+  <div class="bg-white p-4 w-72 rounded-xl">
+    <div class="flex justify-between w-full p-2 items-center">
+      <div @click="pullMouth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center">
+        <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m11.5 14.5l-4-4l4-4"/></svg>
+      </div>
+      <button v-if="false" @click="setToNow">NOW</button>
+      <div class="text-xl">
+        {{ mouth_name }}
+      </div>
+      <div @click="addMouth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center">
+        <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m9.5 14.5l4-4l-4-4"/></svg>
+      </div>
     </div>
-    <div v-for="i in (first_day_of_mouth - 1) ?? 0" class="w-8 h-8 flex items-center justify-center hover:bg-[#000] cursor-pointer rounded-full space-y-2"></div>
-    <div v-for="i in number_of_day_in_mouth" class="w-8 h-8 flex items-center justify-center hover:bg-[#000] cursor-pointer rounded-full space-y-2">
-      {{ i }}
+    <div v-if="false">
+      {{ mouth_name }} {{ year_selected }}
+    </div>
+    <div class="border-t border-gray-300 w-full"></div>
+    <div class="flex flex-wrap w-72 p-1">
+      <div v-for="name in NAME_OF_DAYS" class="text-sm w-9 h-9 flex items-center justify-center cursor-pointer rounded-full space-y-2 text-gray-500">
+        {{ name }}
+      </div>
+      <div v-for="i in (first_day_of_mouth - 1) ?? 0" class="w-9 h-9 flex items-center justify-center hover:bg-[#000] cursor-pointer rounded-full space-y-2"></div>
+      <div v-for="i in number_of_day_in_mouth" class="w-9 h-9 flex items-center justify-center hover:bg-purple-300 cursor-pointer rounded-full space-y-2">
+        {{ i }}
+      </div>
+    </div>
+    <div class="border-t border-gray-300 w-full"></div>
+    <div class="flex justify-end space-x-2 mt-4">
+      <button class="px-3 py-2 border border-gray-400 rounded text-blue-500 text-bold">Cancel</button>
+      <button class="flex px-3 py-2 bg-blue-600 rounded text-blue-200 text-bold items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21 21"><path fill="none" stroke="#dedede" stroke-linecap="round" stroke-linejoin="round" d="M17 4a2.121 2.121 0 0 1 0 3l-9.5 9.5l-4 1l1-3.944l9.504-9.552a2.116 2.116 0 0 1 2.864-.125zm-1.5 2.5l1 1"/></svg>
+        <div>
+          Done
+        </div>
+      </button>
     </div>
   </div>
 </template>
@@ -23,7 +45,7 @@
 
   }
 
-  const NAME_OF_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+  const NAME_OF_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 
   const MOUTH_NAME = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
