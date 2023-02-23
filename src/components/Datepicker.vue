@@ -57,13 +57,18 @@
   })
   */
 
-  const year_selected = ref(new Date().getFullYear())
-  const month_selected = ref(new Date().getMonth())
+  const emits = defineEmits<{
+    (e: 'update:model-value', date: Date): void
+  }>()
+
+  const year_selected = ref(props.modelValue.getFullYear())
+  const month_selected = ref(props.modelValue.getMonth())
+  const day_selected = ref(props.modelValue.getDate())
 
   const number_of_day_in_mouth = computed(() => new Date(year_selected.value, month_selected.value + 1, 0).getDate())
   const first_day_of_mouth = computed(() => new Date(year_selected.value, month_selected.value, 1).getDay())
 
-  const month_name = computed(() => MONTH_NAME[new Date(year_selected.value, month_selected.value + 1, 0).getMonth()])
+  const month_name = computed(() => props.mouth_name[new Date(year_selected.value, month_selected.value + 1, 0).getMonth()])
 
   const setToNow = () => {
     year_selected.value = new Date().getFullYear()
