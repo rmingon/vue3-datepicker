@@ -41,9 +41,6 @@
 <script setup lang="ts">
   import {computed, ref} from "vue";
 
-  const NAME_OF_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
-  const MONTH_NAME = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
   interface Props {
     mouth_name?: string[]
     days_name?: string[]
@@ -55,7 +52,6 @@
     days_name: () => ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
     modelValue: () => new Date()
   })
-  */
 
   const emits = defineEmits<{
     (e: 'update:model-value', date: Date): void
@@ -91,5 +87,10 @@
     } else {
       month_selected.value -= 1
     }
+  }
+
+  const selectDay = (i: number) => {
+    const date_selected = new Date(year_selected.value, month_selected.value, i)
+    emits('update:model-value', date_selected)
   }
 </script>
