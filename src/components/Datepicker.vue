@@ -58,10 +58,10 @@
   const year_selected = ref(new Date().getFullYear())
   const month_selected = ref(new Date().getMonth())
 
-  const number_of_day_in_mouth = computed(() => new Date(year_selected.value, mouth_selected.value + 1, 0).getDate())
-  const first_day_of_mouth = computed(() => new Date(year_selected.value, mouth_selected.value, 1).getDay())
+  const number_of_day_in_mouth = computed(() => new Date(year_selected.value, month_selected.value + 1, 0).getDate())
+  const first_day_of_mouth = computed(() => new Date(year_selected.value, month_selected.value, 1).getDay())
 
-  const month_name = computed(() => MONTH_NAME[new Date(year_selected.value, mouth_selected.value + 1, 0).getMonth()])
+  const month_name = computed(() => MONTH_NAME[new Date(year_selected.value, month_selected.value + 1, 0).getMonth()])
 
   const setToNow = () => {
     year_selected.value = new Date().getFullYear()
