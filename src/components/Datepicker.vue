@@ -45,13 +45,15 @@
   const MONTH_NAME = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   interface Props {
-    mouth_name: string[]
-    days_name: string[]
+    mouth_name?: string[]
+    days_name?: string[]
+    modelValue: Date
   }
-  /*
+
   const props = withDefaults(defineProps<Props>(), {
-    mouth_name: MOUTH_NAME,
-    days_name: NAME_OF_DAYS
+    mouth_name: () => ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    days_name: () => ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+    modelValue: () => new Date()
   })
   */
 
