@@ -1,21 +1,21 @@
 <template>
   <div class="bg-white p-4 w-72 rounded-xl">
-    <div class="flex justify-between w-full p-2 items-center">
-      <div @click="pullMouth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center">
+    <div class="flex justify-between w-full p-2 items-center mb-2">
+      <div @click="pullMouth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
         <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m11.5 14.5l-4-4l4-4"/></svg>
       </div>
       <button v-if="false" @click="setToNow">NOW</button>
       <div class="text-xl">
-        {{ mouth_name }}
+        {{ month_name }}
       </div>
-      <div @click="addMouth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center">
+      <div @click="addMonth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
         <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m9.5 14.5l4-4l-4-4"/></svg>
       </div>
     </div>
     <div v-if="false">
       {{ mouth_name }} {{ year_selected }}
     </div>
-    <div class="border-t border-gray-300 w-full"></div>
+    <div class="border-t border-gray-200 w-full"></div>
     <div class="flex flex-wrap w-72 p-1">
       <div v-for="name in NAME_OF_DAYS" class="text-sm w-9 h-9 flex items-center justify-center cursor-pointer rounded-full space-y-2 text-gray-500">
         {{ name }}
@@ -25,7 +25,7 @@
         {{ i }}
       </div>
     </div>
-    <div class="border-t border-gray-300 w-full"></div>
+    <div class="border-t border-gray-200 w-full"></div>
     <div class="flex justify-end space-x-2 mt-4">
       <button class="px-3 py-2 border border-gray-400 rounded text-blue-500 text-bold">Cancel</button>
       <button class="flex px-3 py-2 bg-blue-600 rounded text-blue-200 text-bold items-center space-x-2">
@@ -41,42 +41,48 @@
 <script setup lang="ts">
   import {computed, ref} from "vue";
 
-  interface Props {
-
-  }
-
   const NAME_OF_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+  const MONTH_NAME = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-  const MOUTH_NAME = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  interface Props {
+    mouth_name: string[]
+    days_name: string[]
+  }
+  /*
+  const props = withDefaults(defineProps<Props>(), {
+    mouth_name: MOUTH_NAME,
+    days_name: NAME_OF_DAYS
+  })
+  */
 
   const year_selected = ref(new Date().getFullYear())
-  const mouth_selected = ref(new Date().getMonth())
+  const month_selected = ref(new Date().getMonth())
 
   const number_of_day_in_mouth = computed(() => new Date(year_selected.value, mouth_selected.value + 1, 0).getDate())
   const first_day_of_mouth = computed(() => new Date(year_selected.value, mouth_selected.value, 1).getDay())
 
-  const mouth_name = computed(() => MOUTH_NAME[new Date(year_selected.value, mouth_selected.value + 1, 0).getMonth()])
+  const month_name = computed(() => MONTH_NAME[new Date(year_selected.value, mouth_selected.value + 1, 0).getMonth()])
 
   const setToNow = () => {
     year_selected.value = new Date().getFullYear()
-    mouth_selected.value = new Date().getMonth()
+    month_selected.value = new Date().getMonth()
   }
 
-  const addMouth = () => {
-    if (mouth_selected.value >= 11) {
+  const addMonth = () => {
+    if (month_selected.value >= 11) {
       year_selected.value += 1
-      mouth_selected.value = 0
+      month_selected.value = 0
     } else {
-      mouth_selected.value += 1
+      month_selected.value += 1
     }
   }
 
   const pullMouth = () => {
-    if (mouth_selected.value <= 0) {
+    if (month_selected.value <= 0) {
       year_selected.value -= 1
-      mouth_selected.value = 11
+      month_selected.value = 11
     } else {
-      mouth_selected.value -= 1
+      month_selected.value -= 1
     }
   }
 </script>
