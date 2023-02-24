@@ -49,7 +49,8 @@
   const props = withDefaults(defineProps<Props>(), {
     mouth_name: () => ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     days_name: () => ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-    modelValue: () => new Date()
+    modelValue: () => new Date(),
+    now_button: () => false
   })
 
   const emits = defineEmits<{
