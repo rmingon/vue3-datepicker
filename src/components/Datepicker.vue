@@ -1,27 +1,24 @@
 <template>
-  <div class="bg-white p-4 w-72 rounded-xl">
+  <div class="bg-white p-4 w-72 rounded-xl border border-gray-300 calendar">
     <div class="flex justify-between w-full p-2 items-center mb-2">
-      <div @click="pullMouth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
+      <div @click="pullMouth" class="flex h-9 w-9 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
         <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m11.5 14.5l-4-4l4-4"/></svg>
       </div>
       <button v-if="false" @click="setToNow">NOW</button>
       <div class="text-xl">
-        {{ month_name }}
+        {{ month_name }} {{ year_selected }}
       </div>
-      <div @click="addMonth" class="flex h-8 w-8 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
+      <div @click="addMonth" class="flex h-9 w-9 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
         <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m9.5 14.5l4-4l-4-4"/></svg>
       </div>
     </div>
-    <div v-if="false">
-      {{ mouth_name }} {{ year_selected }}
-    </div>
     <div class="border-t border-gray-200 w-full"></div>
     <div class="flex flex-wrap w-72 p-1">
-      <div v-for="name in NAME_OF_DAYS" class="text-sm w-9 h-9 flex items-center justify-center cursor-pointer rounded-full space-y-2 text-gray-500">
+      <div v-for="name in props.days_name" class="text-sm w-9 h-9 flex items-center justify-center cursor-pointer rounded-full space-y-2 text-gray-500">
         {{ name }}
       </div>
-      <div v-for="i in (first_day_of_mouth - 1) ?? 0" class="w-9 h-9 flex items-center justify-center hover:bg-[#000] cursor-pointer rounded-full space-y-2"></div>
-      <div v-for="i in number_of_day_in_mouth" class="w-9 h-9 flex items-center justify-center hover:bg-purple-300 cursor-pointer rounded-full space-y-2">
+      <div v-for="i in first_day_of_mouth === 0 ? first_day_of_mouth + 6 : first_day_of_mouth - 1" class="w-9 h-9 flex items-center justify-center rounded-full space-y-2"></div>
+      <div v-for="i in number_of_day_in_mouth" @click="selectDay(i)" :class="[i === day && month_selected === month ? 'bg-purple-200 border border-purple-400': '']" class="w-9 h-9 flex items-center text-gray-800 hover:text-purple-800 justify-center hover:bg-purple-200 hover:border hover:border-purple-400 transition duration-100 cursor-pointer rounded-full space-y-2">
         {{ i }}
       </div>
     </div>
@@ -45,6 +42,7 @@
   interface Props {
     mouth_name?: string[]
     days_name?: string[]
+    now_button?: boolean
     modelValue: Date
   }
 
@@ -56,6 +54,8 @@
 
   const emits = defineEmits<{
     (e: 'update:model-value', date: Date): void
+    (e: 'onCancel', event: Event): void
+    (e: 'onDone', event: Event): void
   }>()
 
   const year = computed(() => props.modelValue.getFullYear())
