@@ -27,9 +27,10 @@
     </div>
     <div class="border-t border-gray-200 w-full"></div>
     <div class="flex justify-end space-x-2 mt-4">
-      <button class="px-3 py-2 border border-gray-400 rounded text-blue-500 text-bold">Cancel</button>
-      <button class="flex px-3 py-2 bg-blue-600 rounded text-blue-200 text-bold items-center space-x-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21 21"><path fill="none" stroke="#dedede" stroke-linecap="round" stroke-linejoin="round" d="M17 4a2.121 2.121 0 0 1 0 3l-9.5 9.5l-4 1l1-3.944l9.504-9.552a2.116 2.116 0 0 1 2.864-.125zm-1.5 2.5l1 1"/></svg>
+      <button @click="emits('onCancel', $event)" class="px-3 py-2 border border-gray-400 rounded text-blue-500 text-bold transition duration-150 hover:bg-gray-100">Cancel</button>
+      <button v-if="props.now_button" @click="setToNow" class="px-3 py-2 border border-blue-400 rounded text-blue-500 text-bold transition duration-150 hover:bg-blue-100">Now</button>
+      <button @click="emits('onDone', $event)" class="flex px-3 py-2 bg-blue-600 rounded text-blue-200 text-bold items-center space-x-2 transition duration-150 hover:bg-blue-700 hover:bg-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21 21"><path fill="none" stroke="#dedede" stroke-linecap="round" stroke-linejoin="round" d="m5.5 11.5l3 3l8.028-8"/></svg>
         <div>
           Done
         </div>
