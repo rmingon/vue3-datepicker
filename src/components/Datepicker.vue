@@ -57,18 +57,20 @@
     (e: 'update:model-value', date: Date): void
   }>()
 
-  const year_selected = ref(props.modelValue.getFullYear())
+  const year = computed(() => props.modelValue.getFullYear())
+  const month = computed(() => props.modelValue.getMonth())
+  const day = computed(() => props.modelValue.getDate())
+
   const month_selected = ref(props.modelValue.getMonth())
-  const day_selected = ref(props.modelValue.getDate())
+  const year_selected = ref(props.modelValue.getFullYear())
 
   const number_of_day_in_mouth = computed(() => new Date(year_selected.value, month_selected.value + 1, 0).getDate())
   const first_day_of_mouth = computed(() => new Date(year_selected.value, month_selected.value, 1).getDay())
 
-  const month_name = computed(() => props.mouth_name[new Date(year_selected.value, month_selected.value + 1, 0).getMonth()])
+  const month_name = computed(() => props.mouth_name[month_selected.value])
 
   const setToNow = () => {
-    year_selected.value = new Date().getFullYear()
-    month_selected.value = new Date().getMonth()
+    emits('update:model-value', new Date())
   }
 
   const addMonth = () => {
