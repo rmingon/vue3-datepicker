@@ -94,3 +94,9 @@
     emits('update:model-value', date_selected)
   }
 </script>
+
+<style scoped>
+.calendar {
+  font-family: 'Tilt Neon', cursive;
+}
+</style>
