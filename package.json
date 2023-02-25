@@ -3,6 +3,7 @@
   "private": false,
   "description": "This is a simple vue3 datepicker",
   "author": "RMINGON",
+  "keywords": ["vue3", "datepicker"],
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
