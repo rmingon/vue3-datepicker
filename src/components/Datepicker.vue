@@ -5,7 +5,7 @@
         <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m11.5 14.5l-4-4l4-4"/></svg>
       </div>
       <button v-if="false" @click="setToNow">NOW</button>
-      <div class="text-xl">
+      <div class="text-xl truncate">
         {{ month_name }} {{ year_selected }}
       </div>
       <div @click="addMonth" class="flex h-9 w-9 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
@@ -28,9 +28,7 @@
       <button v-if="props.now_button" @click="setToNow" class="px-3 py-2 border border-blue-400 rounded text-blue-500 text-bold transition duration-150 hover:bg-blue-100">Now</button>
       <button @click="emits('onDone', $event)" class="flex px-3 py-2 bg-blue-600 rounded text-blue-200 text-bold items-center space-x-2 transition duration-150 hover:bg-blue-700 hover:bg-blue-500">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21 21"><path fill="none" stroke="#dedede" stroke-linecap="round" stroke-linejoin="round" d="m5.5 11.5l3 3l8.028-8"/></svg>
-        <div>
-          Done
-        </div>
+        <div>Done</div>
       </button>
     </div>
   </div>
