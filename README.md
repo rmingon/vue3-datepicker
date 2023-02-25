@@ -2,9 +2,9 @@
 
 ![example](https://github.com/rmingon/vue3-datepicker/blob/main/example.png?raw=true)
 
-## Demo 
+## Demo
 
-
+See online : [Demo](https://codesandbox.io/s/youthful-butterfly-9ksot0?file=/src/App.vue)
 
 ## Install
 
@@ -12,19 +12,23 @@
     npm i vue3-simple-datepicker --save
 ```
 ## Usage
-```javascript
+```vue
 <template>
   <Datepicker v-if="datepicker_opened" v-model="date"/>
 </template>
 
 <script setup>
-    import Datepicker from 'vue3-simple-datepicker';
+    import { Datepicker } from 'vue3-simple-datepicker';
     const datepicker_opened = ref(true);
     const date = ref(new Date());
 </script>
 ```
+### Add style in main.ts or main.js
+```javascript
+    import "node_modules/vue3-simple-datepicker/dist/style.css";
+```
 
-#### v-model should be a Date object
+#### v-model must be a Date object
 ```vue
 const date = ref(new Date());
 
@@ -42,6 +46,7 @@ const date = ref(new Date());
 | month_name | string[] |                                            |                  Months name used in datepicker                   |
 | days_names | string[] | ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] |         Days name used in lib (only first two characters)         |
 | now_button | boolean  | false                                      | Add a button between close and done for set to now the datepicker |
+
 ### Events
 | Events   | Output |            Description            |
 |----------|:------:|:---------------------------------:|
