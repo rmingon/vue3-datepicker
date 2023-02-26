@@ -26,7 +26,7 @@
     <div class="flex justify-end space-x-2 mt-4">
       <button @click="emits('onCancel', $event)" class="px-3 py-2 border border-gray-400 rounded text-blue-500 text-bold transition duration-150 hover:bg-gray-100">Cancel</button>
       <button v-if="props.now_button" @click="setToNow" class="px-3 py-2 border border-blue-400 rounded text-blue-500 text-bold transition duration-150 hover:bg-blue-100">Now</button>
-      <button @click="emits('onDone', $event)" class="flex px-3 py-2 bg-blue-600 rounded text-blue-200 text-bold items-center space-x-2 transition duration-150 hover:bg-blue-700 hover:bg-blue-500">
+      <button @click="onDone" class="flex px-3 py-2 bg-blue-600 rounded text-blue-200 text-bold items-center space-x-2 transition duration-150 hover:bg-blue-700 hover:bg-blue-500">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21 21"><path fill="none" stroke="#dedede" stroke-linecap="round" stroke-linejoin="round" d="m5.5 11.5l3 3l8.028-8"/></svg>
         <div>Done</div>
       </button>
@@ -54,7 +54,7 @@
   const emits = defineEmits<{
     (e: 'update:model-value', date: Date): void
     (e: 'onCancel', event: Event): void
-    (e: 'onDone', event: Event): void
+    (e: 'onDone', event: Date): void
   }>()
 
   const year = computed(() => props.modelValue.getFullYear())
@@ -63,6 +63,7 @@
 
   const month_selected = ref(props.modelValue.getMonth())
   const year_selected = ref(props.modelValue.getFullYear())
+  const day_selected = ref(props.modelValue.getDate())
 
   const number_of_day_in_mouth = computed(() => new Date(year_selected.value, month_selected.value + 1, 0).getDate())
   const first_day_of_mouth = computed(() => new Date(year_selected.value, month_selected.value, 1).getDay())
@@ -93,7 +94,13 @@
 
   const selectDay = (i: number) => {
     const date_selected = new Date(year_selected.value, month_selected.value, i)
+    day_selected.value = i
     emits('update:model-value', date_selected)
+  }
+
+  const onDone = () => {
+    const date_selected = new Date(year_selected.value, month_selected.value, day_selected.value)
+    emits('onDone', date_selected)
   }
 </script>
 
