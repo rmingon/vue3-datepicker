@@ -5,8 +5,13 @@
         <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m11.5 14.5l-4-4l4-4"/></svg>
       </div>
       <button v-if="false" @click="setToNow">NOW</button>
-      <div class="text-xl truncate">
-        {{ month_name }} {{ year_selected }}
+      <div class="text-xl truncate flex space-x-1">
+        <button class="hover:text-blue-500 transition duration-150" @click="selection_mode = 'month'">
+          {{ month_name }}
+        </button>
+        <button class="hover:text-blue-500 transition duration-150" @click="selection_mode = 'year'">
+          {{ year_selected }}
+        </button>
       </div>
       <div @click="addMonth" class="flex h-9 w-9 bg-blue-200 rounded-full justify-center items-center cursor-pointer">
         <svg class="stroke-gray-700" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 21 21"><path fill="none" stroke-linecap="round" stroke-linejoin="round" d="m9.5 14.5l4-4l-4-4"/></svg>
@@ -14,13 +19,7 @@
     </div>
     <div class="border-t border-gray-200 w-full"></div>
     <div class="flex flex-wrap w-72 p-1">
-      <div v-for="name in props.days_name" class="text-sm w-9 h-9 flex items-center justify-center cursor-pointer rounded-full space-y-2 text-gray-500">
-        {{ name }}
-      </div>
-      <div v-for="i in first_day_of_mouth === 0 ? first_day_of_mouth + 6 : first_day_of_mouth - 1" class="w-9 h-9 flex items-center justify-center rounded-full space-y-2"></div>
-      <div v-for="i in number_of_day_in_mouth" @click="selectDay(i)" :class="[i === day && month_selected === month ? 'bg-purple-200 border border-purple-400': '']" class="w-9 h-9 flex items-center text-gray-800 hover:text-purple-800 justify-center hover:bg-purple-200 hover:border hover:border-purple-400 transition duration-100 cursor-pointer rounded-full space-y-2">
-        {{ i }}
-      </div>
+      <datepicker-days v-model="props.modelValue" @date-selected="" />
     </div>
     <div class="border-t border-gray-200 w-full"></div>
     <div class="flex justify-end space-x-2 mt-4">
@@ -36,6 +35,7 @@
 
 <script setup lang="ts">
   import {computed, ref} from "vue";
+  import DatepickerDays from "./DatepickerDays.vue"
 
   interface Props {
     mouth_name?: string[]
@@ -57,16 +57,16 @@
     (e: 'onDone', event: Date): void
   }>()
 
+
   const year = computed(() => props.modelValue.getFullYear())
   const month = computed(() => props.modelValue.getMonth())
   const day = computed(() => props.modelValue.getDate())
 
+  const selection_mode = ref<'day' | 'month' | 'year'>('day')
+
   const month_selected = ref(props.modelValue.getMonth())
   const year_selected = ref(props.modelValue.getFullYear())
   const day_selected = ref(props.modelValue.getDate())
-
-  const number_of_day_in_mouth = computed(() => new Date(year_selected.value, month_selected.value + 1, 0).getDate())
-  const first_day_of_mouth = computed(() => new Date(year_selected.value, month_selected.value, 1).getDay())
 
   const month_name = computed(() => props.mouth_name[month_selected.value])
 
