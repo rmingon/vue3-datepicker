@@ -12,6 +12,8 @@ See online : [Demo](https://codesandbox.io/s/youthful-butterfly-9ksot0?file=/src
     npm i vue3-simple-datepicker --save
 ```
 ## Usage
+> **Warning**
+> Your Datepicker components must implement v-model
 ```vue
 <template>
   <Datepicker v-if="datepicker_opened" v-model="date"/>
@@ -36,7 +38,7 @@ const date = ref(new Date());
 ```
 #### event
 ```vue
-<Datepicker @onCancel="onCancel" @onDone="onDone"/>
+<Datepicker @on-cancel="onCancel" @on-done="onDone"/>
 ```
 
 ### Props
